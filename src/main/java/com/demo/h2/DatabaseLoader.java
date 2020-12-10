@@ -4,31 +4,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.demo.h2.entity.Student;
-import com.demo.h2.repo.StudentRepository;
+import com.demo.h2.entity.Department;
+import com.demo.h2.repo.DepartmentRepository;
+import com.demo.h2.repo.EmployeeRepository;
 
 @Component
 public class DatabaseLoader implements CommandLineRunner {
 
 	@Autowired
-	StudentRepository studentRepository;
+	EmployeeRepository employeeRepository;
 
 	@Autowired
-	public DatabaseLoader(StudentRepository studentRepository) {
-		this.studentRepository = studentRepository;
+	DepartmentRepository departmentRepository;
+
+	@Autowired
+	public DatabaseLoader(EmployeeRepository employeeRepository, DepartmentRepository departmentRepository) {
+		this.employeeRepository = employeeRepository;
+		this.departmentRepository = departmentRepository;
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		saveStudent();
+		saveDept();
 
 	}
 
-	private void saveStudent() {
-		studentRepository.save(new Student("Gopal"));
-		studentRepository.save(new Student("Bishesh"));
-		studentRepository.save(new Student("Vinay"));
-
+	private void saveDept() {
+		departmentRepository.save(new Department("Marketing"));
+		departmentRepository.save(new Department("Development"));
+		departmentRepository.save(new Department("Testing"));
+		departmentRepository.save(new Department("HR"));
 	}
 
 }
