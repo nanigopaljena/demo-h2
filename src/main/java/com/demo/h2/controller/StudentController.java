@@ -17,9 +17,14 @@ public class StudentController {
 	@Autowired
 	StudentService studentService;
 
-	@GetMapping("get-all-student")
-	public List<Student> listAllAtudent() {
-		return studentService.getAllStudent();
+	@GetMapping("get-all-blocking")
+	public List<Student> listAllStudent() {
+		long start = System.currentTimeMillis();
+		List<Student> resp = studentService.getAllStudent();
+		long end = System.currentTimeMillis();  // End time measurement
+		System.out.println("blocking processing took: " + (end - start) + "ms");
+		return resp;
+
 	}
 
 }

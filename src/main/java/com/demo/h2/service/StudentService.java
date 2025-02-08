@@ -15,7 +15,11 @@ public class StudentService {
 	StudentRepository studentRepository;
 
 	public List<Student> getAllStudent() {
-		return studentRepository.findAll();
+		List<Student> list = studentRepository.findAll();
+		list.forEach(data->{
+					data.setStudentName(data.getStudentName().toUpperCase());
+				});
+		return list;
 	}
 
 }

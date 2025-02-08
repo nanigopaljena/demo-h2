@@ -28,6 +28,7 @@ public class DatabaseLoader implements CommandLineRunner {
 		studentRepository.save(new Student("Gopal"));
 		studentRepository.save(new Student("Bishesh"));
 		studentRepository.save(new Student("Vinay"));
+		studentRepository.save(new Student("Vinay"));
 
 	}
 
