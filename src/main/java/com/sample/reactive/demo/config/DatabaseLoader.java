@@ -28,7 +28,7 @@ public class DatabaseLoader implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 	}
 
-	@Scheduled(initialDelay = 5000, fixedRate = Long.MAX_VALUE)
+	@Scheduled(initialDelay = 1000, fixedRate = Long.MAX_VALUE)
     public void runOnceAfterStartup() {
         // Your logic here to run once after application starts
         System.out.println("App has started, running one-time task...");
