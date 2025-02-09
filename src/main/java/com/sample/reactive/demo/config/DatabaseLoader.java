@@ -30,13 +30,12 @@ public class DatabaseLoader implements CommandLineRunner {
 
 	@Scheduled(initialDelay = 1000, fixedRate = Long.MAX_VALUE)
     public void runOnceAfterStartup() {
-        // Your logic here to run once after application starts
-        System.out.println("App has started, running one-time task...");
-            log.debug("data getting inserted");
-            repo.save(new Employee("Emp 1")).block();
-            repo.save(new Employee("Emp 2")).block();
-            repo.save(new Employee("Emp 3")).block();
-            repo.save(new Employee("Emp 4")).block();
+		log.info("App has started, running one-time task");
+		for(int i=0;i<100;i++){
+			repo.save(new Employee("Employee ---"+i)).block();
+		}
+		log.info("Data load ended");
+
     }
 
 
