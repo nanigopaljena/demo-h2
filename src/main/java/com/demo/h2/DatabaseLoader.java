@@ -25,10 +25,11 @@ public class DatabaseLoader implements CommandLineRunner {
 	}
 
 	private void saveStudent() {
-		studentRepository.save(new Student("Gopal"));
-		studentRepository.save(new Student("Bishesh"));
-		studentRepository.save(new Student("Vinay"));
-		studentRepository.save(new Student("Vinay"));
+		System.out.println("App has started, running one-time task");
+		for(int i=0;i<100;i++){
+			studentRepository.save(new Student("Student --"+i));
+		}
+		System.out.println("Data load ended");
 
 	}
 
