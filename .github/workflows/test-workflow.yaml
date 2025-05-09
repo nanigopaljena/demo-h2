@@ -2,15 +2,14 @@ name: Check and Create Resource Per Environment
 
 on:
   schedule:
-    - cron: '*/2 * * * *'  # Runs every minute
-  workflow_dispatch:     # Optional: manual trigger
+    - cron: '* * * * *'  # Runs every minute
 
 jobs:
   check-create:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        environment: [dev, qa, stage, prod]  # List of environments
+        environment: [dev]  # List of environments
 
     steps:
       - name: Set API URL for environment
