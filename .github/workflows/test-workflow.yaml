@@ -1,45 +1,17 @@
-name: Check and Create Resource Per Environment
+name: Hello for All Envs
 
 on:
   schedule:
-    - cron: '* * * * *'  # Runs every minute
+    - cron: "*/5 * * * *"  # Every 5 minutes
+  workflow_dispatch:
 
 jobs:
-  check-create:
+  say_hello:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        environment: [dev]  # List of environments
+        environment: [dev, qa, stage, prod]  # Define your environments here
 
     steps:
-      - name: Set API URL for environment
-        id: set_url
-        run: |
-          # Dynamically construct the API URL based on the environment
-          ENV="${{ matrix.environment }}"
-          API_URL="https://api.example.com/$ENV/resource"
-          echo "Using URL: $API_URL"
-          echo "api_url=$API_URL" >> $GITHUB_OUTPUT
-
-      - name: Check if resource exists (GET)
-        id: check_resource
-        run: |
-          echo "Checking resource for ${{ matrix.environment }}..."
-          response=$(curl -s -o response.txt -w "%{http_code}" "${{ steps.set_url.outputs.api_url }}")
-          echo "Status Code: $response"
-          echo "response_code=$response" >> $GITHUB_OUTPUT
-
-      - name: Create resource if not found (POST)
-        if: steps.check_resource.outputs.response_code == '404'
-        id: create_resource
-        run: |
-          echo "Resource not found. Creating..."
-          response=$(curl -s -o create_response.txt -w "%{http_code}" -X POST "${{ steps.set_url.outputs.api_url }}" \
-            -H "Content-Type: application/json" \
-            -d '{"name": "sample-${{ matrix.environment }}"}')
-          echo "Create response code: $response"
-          echo "create_response_code=$response" >> $GITHUB_OUTPUT
-
-      - name: Mark success
-        if: steps.create_resource.outputs.create_response_code == '200' || steps.create_resource.outputs.create_response_code == '201' || steps.check_resource.outputs.response_code != '404'
-        run: echo " ${{ matrix.environment }} Resource exists or created successfully."
+      - name: Say Hello
+        run: echo "Hello from ${{ matrix.environment }} environment!"
